@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            text-align: center;
+            align-items: center;
+            display: grid;
+            color: white;
+            background-color: deepskyblue;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .grid-container{
+            display: grid;
+            grid-template-columns:200px 150px 100px ;
+            column-gap: 10px;
+            row-gap: 20px;
+            margin-top: 10px;
+
+            
+        }
+        .header{
+            width: 100%;
+
+        }
+        .add{
+            font-size: 15px;
+            height: 30px;
+            color: white;
+            background-color: green;
+            border: none;
+            border-radius: 20px;
+        }
+        .delet{
+            font-size: 15px;
+            height: 30px;
+            color: white;
+            background-color: rgb(115, 10, 10);
+            border: none;
+            border-radius: 20px;
+        }
+        @media only screen and (min-width: 180px) and (max-width: 567px) {
+           .grid-container{
+            grid-template-columns:160px 100px 80px ;
+           }  
+        }
+    </style>
+
+
+    <h1>Note pad</h1>
+ <div class="header">
+    <div class="grid-container">
+    <input class="input" type="text" placeholder="Enter to do here">
+    <input class="date" type="date">
+    <button class="add" onclick="addTodo();">Add</button>
+    </div>
+</div>
+    <div class="todo-container grid-container"></div>
+
+    <script>
+        let todolist = [
+            // {
+            //     item : 'buy milk' , 
+            //     duedate:'01/01/2000'
+            // },
+            // {
+            //     item : 'go to college' , 
+            //     duedate:'02/02/2000'
+            // }
+        ];
+        display();
+        function addTodo(){
+            let inputElement = document.querySelector('.input');
+            let inputDate = document.querySelector('.date');
+            let inputItem = inputElement.value;
+            let inputDateitem = inputDate.value;
+            todolist.push({item:inputItem , duedate: inputDateitem});
+            inputElement.value = '';
+            inputDate = '';
+            
+          display();  
+        }
+
+        function display(){
+            let containerElement = document.querySelector('.todo-container');
+           let newhtml = '';
+
+            for(let i = 0; i < todolist.length; i++){
+                let todoitem = todolist[i].item;
+                let duedate = todolist[i].duedate
+                
+               newhtml += `
+                <span>${todoitem}</span>
+                <span>${duedate}</span>
+                <button class="delet" onclick = "todolist.splice(${i},1); display();">Delet</button> 
+               `;
+
+                
+            }
+            containerElement.innerHTML = newhtml;
+
+        }
+        
+    </script>
+</body>
+</html>
